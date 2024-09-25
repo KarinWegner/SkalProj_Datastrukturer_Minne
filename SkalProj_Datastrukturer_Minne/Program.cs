@@ -5,12 +5,13 @@ using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 using static System.Net.Mime.MediaTypeNames;
+using SkalProj_Datastrukturer_Minne;
 
 namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
-        
+
         /// <summary>
         /// The main method, vill handle the menues for the program
         /// </summary>
@@ -104,9 +105,11 @@ namespace SkalProj_Datastrukturer_Minne
         /// Examines the datastructure List
         /// </summary>
         static void ExamineList()
-        {   List<string> theList = new List<string>();
+        {
+            List<string> theList = new List<string>();
             bool examinationComplete = false;
-            do {
+            do
+            {
                 /*
                  * Loop this method untill the user inputs something to exit to main menue.
                  * Create a switch statement with cases '+' and '-'
@@ -118,24 +121,24 @@ namespace SkalProj_Datastrukturer_Minne
                 */
                 Console.WriteLine("Add an input to list by writing '+' followed by the string you want to add.");
                 Console.WriteLine("remove an input from the list by writing '-' followed by the string you want to remove.");
-                
+
                 string input = Console.ReadLine();
                 char nav = input[0];                                //Hämtar ut första char:en i input
                 string value = input.Substring(1);                  //Hämtar ut hela stringen utom första char:en
                 int capacityCount = 0;
-                switch (nav) 
+                switch (nav)
                 {
                     case '+':
-                         capacityCount = theList.Capacity;
+                        capacityCount = theList.Capacity;
                         theList.Add(value);
 
                         Console.WriteLine("Value added");
 
-                        if (capacityCount == theList.Capacity) 
+                        if (capacityCount == theList.Capacity)
                         {
                             Console.WriteLine("List capacity was not changed.");
                         }
-                        else if(capacityCount > theList.Capacity) 
+                        else if (capacityCount > theList.Capacity)
                         {
                             Console.WriteLine("List capacity was decreased!");
                         }
@@ -148,21 +151,21 @@ namespace SkalProj_Datastrukturer_Minne
                         try
                         {
 
-                             capacityCount = theList.Capacity;
+                            capacityCount = theList.Capacity;
                             theList.Remove(value);
                             Console.WriteLine("value removed.");
                         }
                         catch (Exception)
                         {
 
-                            
+
                         }
                         break;
-                
+
                 }
-                Console.WriteLine($"List capacity:\t{theList.Capacity}");          
+                Console.WriteLine($"List capacity:\t{theList.Capacity}");
                 Console.WriteLine($"List count:\t{theList.Count}");
-                if (capacityCount == theList.Capacity)                               
+                if (capacityCount == theList.Capacity)
                 {
                     Console.WriteLine("List capacity was not changed.");
                 }
@@ -175,7 +178,7 @@ namespace SkalProj_Datastrukturer_Minne
                     Console.WriteLine("List capacity was increased!");
                 }
             }
-            while(!examinationComplete);
+            while (!examinationComplete);
         }
 
         /// <summary>
@@ -185,7 +188,7 @@ namespace SkalProj_Datastrukturer_Minne
         {
             bool examinationComplete = false;
             Queue queue = new Queue();
-            do 
+            do
             {
                 Console.Clear();
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
@@ -206,7 +209,7 @@ namespace SkalProj_Datastrukturer_Minne
                 switch (input)
                 {
                     case '1':
-                        if (queue.Count==0)
+                        if (queue.Count == 0)
                         {
                             Console.WriteLine("Queue is empty!");
                         }
@@ -228,13 +231,13 @@ namespace SkalProj_Datastrukturer_Minne
                         try
                         {
 
-                        string enqueuee = Console.ReadLine();
+                            string enqueuee = Console.ReadLine();
                             queue.Enqueue(enqueuee);
                         }
                         catch (ArgumentNullException e)
                         {
                             Console.WriteLine(e.Message);
-                            
+
                         }
                         break;
                     case '3':
@@ -252,7 +255,7 @@ namespace SkalProj_Datastrukturer_Minne
                             Console.WriteLine(e.Message);
                             numberInput = 0;
                         }
-                        catch (ArgumentNullException e) 
+                        catch (ArgumentNullException e)
                         {
                             Console.WriteLine(e.Message);
                             numberInput = 0;
@@ -263,25 +266,25 @@ namespace SkalProj_Datastrukturer_Minne
                             numberInput = 0;
                         }
 
-                            Console.WriteLine($"Dequeuing {numberInput} items");
+                        Console.WriteLine($"Dequeuing {numberInput} items");
                         Console.WriteLine("-----------------------");
-                       
-                        
-                            for (int i = 0; i <= numberInput-1; i++)
+
+
+                        for (int i = 0; i <= numberInput - 1; i++)
+                        {
+                            if (queue.Count == 0)
                             {
-                                if (queue.Count == 0)
-                                {
-                                    Console.WriteLine("Line is empty");
+                                Console.WriteLine("Line is empty");
                                 Console.WriteLine($"{i}/{numberInput} dequeues successful.");
-                                }
-                                else
-                                {
+                            }
+                            else
+                            {
                                 string nextInLine = Convert.ToString(queue.Peek());
                                 Console.WriteLine($"Dequeued {nextInLine}");
-                                    queue.Dequeue();
-                                }
+                                queue.Dequeue();
                             }
-                        
+                        }
+
 
 
                         break;
@@ -295,14 +298,12 @@ namespace SkalProj_Datastrukturer_Minne
             }
             while (!examinationComplete);
 
-    
-
-            
             /*
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+
         }
 
         /// <summary>
@@ -310,16 +311,16 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineStack()
         {
-            Console.Clear();
-            Stack stack = new Stack();
             bool examinationComplete = false;
+
+            string text = "";
+            Stack textStack = new Stack();
             do
             {
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
-                    + "\n1. View Stack"
-                    + "\n2. Push item"
-                    + "\n3. Pull item"
-                    + "\n0. Exit the application");
+                    + "\n1. Enter string to reverse"
+                    + "\n2. Reverse string"
+                    + "\n0. Return to main menu");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
                 {
@@ -332,100 +333,38 @@ namespace SkalProj_Datastrukturer_Minne
                 }
                 switch (input)
                 {
-                    case '0':
-                        examinationComplete = true;
-                        break;
                     case '1':
-                        if (stack.Count == 0)
+                        try
                         {
-                            Console.WriteLine("Stack is empty!");
+                            text = Console.ReadLine();
+                            ArgumentNullException.ThrowIfNullOrWhiteSpace(text);
                         }
-                        else
+                        catch (ArgumentNullException e)
                         {
-                            Console.WriteLine("Current stack:");
-                            Console.WriteLine("--------------");
-                            foreach (var item in stack)
-                            {
-                                Console.WriteLine(item);
-                            }
-                            Console.WriteLine();
-                            Console.WriteLine("Bottom of stack");
+                            Console.WriteLine(e.Message);
+                            Console.WriteLine("Input is empty. Returning to selection menu.");
+                            break;
                         }
+
+                        foreach (char c in text)        //Adding text char by char to stack.
+                        {
+                            textStack.Push(c);
+                        }
+
                         break;
                     case '2':
-                        Console.WriteLine("Enter input to push to stack:");
-                        try
+                        Console.WriteLine($"Input: \n{text}\n\nOutput:\n");
+                        foreach (char c in textStack)
                         {
-                            string pushee = Console.ReadLine();
-                            stack.Push(pushee);
-                            Console.WriteLine($"Pushed {pushee} to stack");
+                            Console.Write(textStack.Peek());
+                            Console.WriteLine(textStack.Pop());
                         }
-                        catch (ArgumentNullException e)
-                        {
-                            Console.WriteLine(e.Message);
-
-                        }
-                        
                         break;
-                    case '3':
-                        int numberInput;
-                        Console.WriteLine($"There are {stack.Count} items stacked");
-                        Console.WriteLine("How many items do you want to pull from stack?");
-                        try
-                        {
-                             numberInput = int.Parse(Console.ReadLine());
-                                                 
-                        }
-                        catch (ArgumentOutOfRangeException e)
-                        {
-                            Console.WriteLine(e.Message);
-                            Console.WriteLine("Invalid input");
-                            numberInput = 0;
-                        }
-                        catch (ArgumentNullException e)
-                        {
-                            
-                            Console.WriteLine(e.Message);
-                            Console.WriteLine("Empty input");
-                            numberInput = 0;
-                        }
-                        catch (ArgumentException e)
-                        {
-                            Console.WriteLine(e.Message);
-                            Console.WriteLine("Input error");
-                            numberInput = 0;
-                        }
 
-                        
-                            Console.WriteLine($"Pulling {numberInput} items from stack");
-                        Console.WriteLine("--------------------------");
-                        for (int i = 0; i < numberInput; i++)
-                        {
-                            if (stack.Count == 0)
-                            {
-                                Console.WriteLine("Reached bottom of stack");
-
-                                Console.WriteLine($"{i}/{numberInput} pulls successful.");
-                                i = numberInput;
-                            }
-                            else 
-                            {
-                               // Console.WriteLine($"i = {i}\nnumberInput = {numberInput}");
-                            string pulledItem = Convert.ToString(stack.Peek());
-                            Console.WriteLine($"Pulled {pulledItem} from top of stack");
-                                stack.Pop();
-
-                            }
-                        }
-                        
-
-                        break;
-                    default:
-                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3)");
-                        break;
                 }
+            }
+            while (!examinationComplete);
 
-            } while (!examinationComplete);
             /*
              * Loop this method until the user inputs something to exit to main menue.
              * Create a switch with cases to push or pop items
@@ -433,8 +372,81 @@ namespace SkalProj_Datastrukturer_Minne
             */
         }
 
+
         static void CheckParanthesis()
         {
+            Console.Clear();
+            Queue charInput = new Queue();
+            Stack<char> parenthesisStack = new Stack<char>();
+
+            Console.WriteLine("Input string to check validity on:");
+            try
+            {
+
+                string text = Console.ReadLine();
+                foreach (char c in text)
+                {
+                    charInput.Enqueue(c);
+                }
+
+            }
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine(e.Message);
+                charInput.Enqueue('.');         //Lägger till en char i kön så den inte är tom
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                charInput.Enqueue('.');         //Lägger till en char i kön så den inte är tom
+            }
+            int textPosition = -1;              //Kollar var i kön vi är
+            foreach (char c in charInput)
+            {
+                textPosition++;
+
+                int parenthesisType = ParenthesisFinder(c);
+                if (parenthesisType > 0)                    //Type 0 is NotParenthesis
+                {
+                    if (parenthesisType == 1)               //0 is Opener. Adds it to the stack 
+                    {
+                        parenthesisStack.Push(c);
+                    }
+                    else if (parenthesisType == 2)
+                    {
+                        bool parenthesisMatch = MatchParenthesis(c, parenthesisStack.Peek());
+                        if (!parenthesisMatch) 
+                        {
+                            Console.WriteLine("Non-matching end parenthesis found.");
+                            break;
+                        }
+                    }
+                }
+
+            }
+            if (textPosition != charInput.Count)            //occurs if parenthesis didn't match and we exited out of the foreach loop
+            {
+                Console.WriteLine("An incorrect input was found in the text. Input was not valid.");
+                Console.WriteLine("Error found at:\n");
+                for (int i = 0; i < textPosition; i++)
+                {
+                    Console.Write(charInput.Dequeue());
+                }
+
+            }
+            else if (parenthesisStack.Count != 0)           //occurs if we finished the foreach loop but all startParenthesis were not matched with an endParenthesis
+            {
+                Console.WriteLine("There are still parenthesis left open in the text. Input is not valid");
+            }
+            else
+            {
+                Console.WriteLine("No errors found. Input is valid!");
+            }
+
+            Console.WriteLine("Press any key to return to main menu.");
+            Console.ReadKey();
+
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
@@ -442,16 +454,92 @@ namespace SkalProj_Datastrukturer_Minne
              */
 
         }
-        //class ExampleClass
+
+        private static bool MatchParenthesis(char endParenthesis, char topOfStack)
+        {
+            bool isMatch;
+            int p1ID = Identifier(endParenthesis);                                                       //Parenthesis 1 ID
+            int p2ID = Identifier(topOfStack);                                                           //Parenthesis 2 ID
+
+            if (p1ID == p2ID)                                                                //If assigned the same ID, it's a match
+                return true;
+
+            else
+                return false;
+
+        }
+
+        private static int Identifier(char parenthesis)
+        {
+            int ID;
+            if (parenthesis == '(' || parenthesis == ')')
+            {
+                return 0;
+            }
+            else if (parenthesis == '[' || parenthesis == ']')
+            {
+                return 1;
+            }
+            else  //(parenthesis == '{' || parenthesis == '}')
+            {
+                return 2;
+            }
+        }
+
+       
+
+        private static int ParenthesisFinder(char c)        //returns 0 if it's not a parenthesis, 1 for opener and 2 for closing parenthesis.
+        {
+            int parenthesisType;
+            if (c == '(' || c == '[' || c == '{')
+            {
+                parenthesisType = (int)Type.StartParenthesis;
+            }
+            else if (c == ')' || c == ']' || c == '}')
+            {
+                parenthesisType = (int)Type.EndParenthesis;
+            }
+            else
+            {
+                parenthesisType = (int)Type.NotParenthesis;
+            }
+            return parenthesisType;
+        }
+
+        //private static bool IsStartParenthesis(char c)        //Made obsolete by ParenthesisFinder which returns more valuable info at once
         //{
-        //    public string letters;
-        //    public ExampleClass(string input)
+        //    bool isStartParenthesis;
+        //    switch (c)
         //    {
-        //        letters = input;
+        //        case '(':
+        //            isStartParenthesis = true;
+        //            break;
+        //        case '{':
+        //            isStartParenthesis = true;
+        //            break;
+        //        case '[':
+        //            isStartParenthesis = true;
+        //            break;
+        //        default:
+        //            isStartParenthesis = false;
+        //            break;
         //    }
-
+        //    return isStartParenthesis;
         //}
+        class ExampleClass
+        {
+            public string letters;
+            public ExampleClass(string input)
+            {
+                letters = input;
+            }
 
+        }
+        static void ExamineItemStack()  //ville inte slänga den missuppfattade koden jag skrev till uppgift 3
+        {
+         
+        }
     }
+
 }
 
