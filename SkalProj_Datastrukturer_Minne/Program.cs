@@ -63,6 +63,7 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
+                    + "\n5. Examine Recursion"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -87,6 +88,9 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                     case '4':
                         CheckParanthesis();
+                        break;
+                    case '5':
+                        ExamineRecursion();
                         break;
                     /*
                      * Extend the menu to include the recursive 
@@ -315,12 +319,12 @@ namespace SkalProj_Datastrukturer_Minne
             bool examinationComplete = false;
 
             string text = "";
-            Stack textStack = new Stack();
+            Stack textStack;
             do
             {
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
-                    + "\n1. Enter string to reverse"
-                    + "\n2. Reverse string"
+                    + "\n1. Reverse string"
+                    
                     + "\n0. Return to main menu");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -334,11 +338,15 @@ namespace SkalProj_Datastrukturer_Minne
                 }
                 switch (input)
                 {
+                    case '0':
+                        examinationComplete = true;
+                        break;
                     case '1':
                         try
                         {
+                            textStack = new Stack();
+                            Console.WriteLine("Enter input to reverse:");
                             text = Console.ReadLine();
-                            ArgumentNullException.ThrowIfNullOrWhiteSpace(text);
                         }
                         catch (ArgumentNullException e)
                         {
@@ -346,20 +354,20 @@ namespace SkalProj_Datastrukturer_Minne
                             Console.WriteLine("Input is empty. Returning to selection menu.");
                             break;
                         }
-
+                        char[] charArray = text.ToCharArray();
                         foreach (char c in text)        //Adding text char by char to stack.
                         {
                             textStack.Push(c);
                         }
+                        
+                        int stackLength = textStack.Count;
 
-                        break;
-                    case '2':
                         Console.WriteLine($"Input: \n{text}\n\nOutput:\n");
-                        foreach (char c in textStack)
+                        for (int i = 0; i < stackLength; i++)
                         {
-                            Console.Write(textStack.Peek());
-                            Console.WriteLine(textStack.Pop());
+                            Console.Write(textStack.Pop());
                         }
+                        Console.WriteLine();
                         break;
                     default:
                         Console.WriteLine("Please enter some valid input (0, 1, 2)");
@@ -439,7 +447,7 @@ namespace SkalProj_Datastrukturer_Minne
 
                         break;
                     case '2':
-                        text=".";
+                        text = ".";
                         bool correctInput = true;
                         do
                         {
@@ -453,40 +461,40 @@ namespace SkalProj_Datastrukturer_Minne
                                 + $"\n4.{testInput4}"
                                 + $"\n5.{testInput5}");
 
-                        try
-                        {
-                            input = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
+                            try
+                            {
+                                input = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
 
-                        }
-                        catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
-                        {
+                            }
+                            catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
+                            {
 
-                            Console.WriteLine("Please enter some input!");
-                        }
+                                Console.WriteLine("Please enter some input!");
+                            }
 
-                        switch(input)
-                        {
-                            case '1': 
-                                text = testInput1;
-                                break;
-                            case '2':
-                                text = testInput2;
-                                break;
-                            case '3':
-                                text = testInput3;
-                                break;
-                            case '4':
-                                text = testInput4;
-                                break;
-                            case '5':
-                                text = testInput5;
-                                break;
-                            default:
-                                Console.WriteLine("Please enter some valid input (1, 2, 3, 4, 5)");
+                            switch (input)
+                            {
+                                case '1':
+                                    text = testInput1;
+                                    break;
+                                case '2':
+                                    text = testInput2;
+                                    break;
+                                case '3':
+                                    text = testInput3;
+                                    break;
+                                case '4':
+                                    text = testInput4;
+                                    break;
+                                case '5':
+                                    text = testInput5;
+                                    break;
+                                default:
+                                    Console.WriteLine("Please enter some valid input (1, 2, 3, 4, 5)");
                                     correctInput = false;
-                                 break;
+                                    break;
 
-                        }
+                            }
                         } while (!correctInput);
                         ParenthesisChecker(text);
 
@@ -540,7 +548,7 @@ namespace SkalProj_Datastrukturer_Minne
                         bool parenthesisMatch;
                         try
                         {
-                             parenthesisMatch= MatchParenthesis(c, parenthesisStack.Peek());
+                            parenthesisMatch = MatchParenthesis(c, parenthesisStack.Peek());
                         }
                         catch (InvalidOperationException e)
                         {
@@ -548,7 +556,7 @@ namespace SkalProj_Datastrukturer_Minne
                             Console.WriteLine(e.Message);
                             parenthesisMatch = false;
                         }
-                        
+
                         if (!parenthesisMatch)
                         {
                             Console.WriteLine();
@@ -567,7 +575,7 @@ namespace SkalProj_Datastrukturer_Minne
 
             Console.WriteLine();
 
-            if (textPosition+1 != charInput.Count)            //occurs if parenthesis didn't match and we exited out of the foreach loop. textposition is in 0 count while count isnt so adding 1
+            if (textPosition + 1 != charInput.Count)            //occurs if parenthesis didn't match and we exited out of the foreach loop. textposition is in 0 count while count isnt so adding 1
             {
                 Console.WriteLine("An incorrect input was found in the text. Input was not valid.");
                 Console.WriteLine("Error found at:");
@@ -645,26 +653,144 @@ namespace SkalProj_Datastrukturer_Minne
             return parenthesisType;
         }
 
-        //private static bool IsStartParenthesis(char c)        //Made obsolete by ParenthesisFinder which returns more valuable info at once
-        //{
-        //    bool isStartParenthesis;
-        //    switch (c)
-        //    {
-        //        case '(':
-        //            isStartParenthesis = true;
-        //            break;
-        //        case '{':
-        //            isStartParenthesis = true;
-        //            break;
-        //        case '[':
-        //            isStartParenthesis = true;
-        //            break;
-        //        default:
-        //            isStartParenthesis = false;
-        //            break;
-        //    }
-        //    return isStartParenthesis;
-        //}
+        static void ExamineRecursion()
+        {
+            bool examinationComplete = false;
+            do
+            {
+                char input = ' ';
+                Console.WriteLine("Select what recursion method you would like to use:\n"
+                    + "1. RecursionOdd\n"
+                    +"2. RecursionEven\n"
+                    +"0. Return to start menu");
+                try
+                {
+                    input = Console.ReadLine()[0];
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    Console.WriteLine(e.Message);
+                    
+                }
+                catch (ArgumentNullException e)
+                {
+                    Console.WriteLine(e.Message);
+                   
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                   
+                }
+                int numberInput;
+                switch (input)
+                {
+                    case '0':
+                        examinationComplete = true; break;
+                    case '1':
+                        Console.WriteLine($"Input start number for RecursiveOdd");
+                        string text = Console.ReadLine();
+                        try
+                        {
+                            numberInput = int.Parse(text);
+                            int result = RecursiveOdd(numberInput);
+                            Console.WriteLine(result);
+                        }
+                        catch (ArgumentOutOfRangeException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        catch (ArgumentNullException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        catch (ArgumentException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        break;
+                    case '2':
+                        Console.WriteLine($"Input start number for RecursiveEven");
+                        text = Console.ReadLine();
+                        try
+                        {
+                            numberInput = int.Parse(text);
+                            int result = RecursiveEven(numberInput);
+                            Console.WriteLine(result);
+                        }
+                        catch (ArgumentOutOfRangeException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        catch (ArgumentNullException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        catch (ArgumentException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                
+
+                Console.WriteLine("try again?\n"
+                    + "1. Yes\n"
+                    + "2. No");
+                
+                try
+                {
+                    input = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
+
+                }
+                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
+                {
+
+                    Console.WriteLine("Please enter some input!");
+                }
+
+                switch (input)
+                {
+                    case '1':
+                        Console.WriteLine("Restarting..");
+                        Console.Clear();
+                        break;
+                    case '2':
+                        examinationComplete = true;
+                        break;
+                    default:
+                        Console.WriteLine("Please select an available number, 1 or 2");
+                        break;
+
+                }
+            } while (!examinationComplete);
+        }
+
+        static int RecursiveOdd(int n)
+        {
+
+            if (n == 1)
+            {
+               // Console.WriteLine($"n = {n}");
+                return 1;
+            }
+            //Console.WriteLine($"({n} - 1) + 2 = {(n - 1) + 2}");
+            return (RecursiveOdd(n - 1) + 2);
+        }
+        static int RecursiveEven(int n)
+        {
+
+            if (n == 0)
+            {
+                //Console.WriteLine($"n = {n}");
+                return 0;
+            }
+            //Console.WriteLine($"({n} - 1) + 2 = {(n - 1) + 2}");
+            return (RecursiveEven(n - 1) + 2);
+        }
         class ExampleClass
         {
             public string letters;
