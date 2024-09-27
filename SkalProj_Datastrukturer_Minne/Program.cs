@@ -64,6 +64,7 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
                     + "\n5. Examine Recursion"
+                    +"\n6. Examine Iteration"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -91,6 +92,9 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                     case '5':
                         RecursionMethods.ExamineRecursion();
+                        break;
+                    case '6':
+                        IterationMethods.ExamineIteration();
                         break;
                     /*
                      * Extend the menu to include the recursive 

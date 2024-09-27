@@ -76,7 +76,7 @@ namespace SkalProj_Datastrukturer_Minne
                         {
                             numberInput = int.Parse(text);
                         }
-                        catch (ArgumentOutOfRangeException e)
+                        catch (System.FormatException e)
                         {
                             Console.WriteLine(e.Message);
                             numberInput = 0;

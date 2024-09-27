@@ -25,8 +25,20 @@ namespace SkalProj_Datastrukturer_Minne
                 */
                 Console.WriteLine("Add an input to list by writing '+' followed by the string you want to add.");
                 Console.WriteLine("remove an input from the list by writing '-' followed by the string you want to remove.");
+                string input;
+                try
+                {
+                     input = Console.ReadLine();
+                    if (String.IsNullOrEmpty(input))
+                    {
+                        input = " ";
+                    }
+                }
+                catch (ArgumentNullException e)
+                {
+                    input = " ";
+                }
 
-                string input = Console.ReadLine();
                 char nav = input[0];                                //Hämtar ut första char:en i input
                 string value = input.Substring(1);                  //Hämtar ut hela stringen utom första char:en
                 int capacityCount = 0;

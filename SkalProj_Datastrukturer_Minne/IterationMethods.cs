@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace SkalProj_Datastrukturer_Minne
 {
-    public class RecursionMethods
+    public class IterationMethods
     {
-        public static void ExamineRecursion()
+        public static void ExamineIteration()
         {
             bool examinationComplete = false;
             do
             {
                 char input = ' ';
-                Console.WriteLine("Select what recursion method you would like to use:\n"
-                    + "1. RecursionOdd\n"
-                    + "2. RecursionEven\n"
-                    + "3. FibonacciRecursion\n"
+                Console.WriteLine("Select what iteration method you would like to use:\n"
+                    + "1. IterativeEven\n"
+                    + "2. FibonacciIteration\n"
                     + "0. Return to start menu");
                 try
                 {
@@ -44,12 +43,12 @@ namespace SkalProj_Datastrukturer_Minne
                     case '0':
                         examinationComplete = true; break;
                     case '1':
-                        Console.WriteLine($"Input start number for RecursiveOdd");
+                        Console.WriteLine($"Input start number for IterativeEven:");
                         string text = Console.ReadLine();
                         try
                         {
                             numberInput = int.Parse(text);
-                            int result = RecursiveOdd(numberInput);
+                            int result = IterativeEven(numberInput);
                             Console.WriteLine(result);
                         }
                         catch (System.FormatException e)
@@ -66,28 +65,7 @@ namespace SkalProj_Datastrukturer_Minne
                         }
                         break;
                     case '2':
-                        Console.WriteLine($"Input start number for RecursiveEven");
-                        text = Console.ReadLine();
-                        try
-                        {
-                            numberInput = int.Parse(text);
-                            int result = RecursiveEven(numberInput);
-                            Console.WriteLine(result);
-                        }
-                        catch (System.FormatException e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                        catch (ArgumentNullException e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                        catch (ArgumentException e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                        break;
-                    case '3':
+
                         Console.WriteLine($"Input the number in the fibonnacisequence you want to find:");
                         text = Console.ReadLine();
                         try
@@ -146,44 +124,31 @@ namespace SkalProj_Datastrukturer_Minne
                 }
             } while (!examinationComplete);
         }
-
-        static int RecursiveOdd(int n)
+        private static int IterativeEven(int numberInput)
         {
-
-            if (n == 1)
+            int result = 1;
+            for (int i = 0; i < numberInput-1; i++)
             {
-                // Console.WriteLine($"n = {n}");
-                return 1;
+                result += 2;
             }
-            //Console.WriteLine($"({n} - 1) + 2 = {(n - 1) + 2}");
-            return (RecursiveOdd(n - 1) + 2);
+            return result;
         }
-        static int RecursiveEven(int n)
+        private static int Fibonacci(int numberInput)
         {
-
-            if (n == 0)
+            int fib1 = 0;
+            int fib2 = 1;
+            int result = 0;
+            for (int i = 0; i < numberInput; i++)
             {
-                //Console.WriteLine($"n = {n}");
-                return 0;
+                result = (fib1 + fib2);
+                fib2 = fib1; 
+                fib1 = result;
+                Console.WriteLine($"fib 1: {fib1}, fib 2: {fib2}");
             }
-            //Console.WriteLine($"({n} - 1) + 2 = {(n - 1) + 2}");
-            return (RecursiveEven(n - 1) + 2);
+            
+            return result;
         }
-        static int Fibonacci(int n)
-        {
-           // Console.WriteLine($"n = {n}");
 
-            if (n < 2)
-            {
-                return n;
-            }
-          //  Console.WriteLine($"(n-1) + (n-2) = {(n - 1) + (n - 2)}");
 
-            int fib1 = Fibonacci(n - 1);
-            int fib2 = Fibonacci(n - 2);
-            int fibonacci = fib1 + fib2;
-            //  return (Fibonacci(n-1)+(n-2));            //detta gav fel resultat
-            return fibonacci;
-        }
     }
 }
